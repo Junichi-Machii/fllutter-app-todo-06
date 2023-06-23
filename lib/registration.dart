@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_app_todo/main.dart';
@@ -6,10 +7,10 @@ class Registration extends StatelessWidget {
   String? mailAddress;
   String? password;
   String? passwordCheck;
-
+  var db = FirebaseFirestore.instance;
   Registration({Key? key}) : super(key: key);
   @override
-  Widget build( BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('新規登録'),
@@ -69,13 +70,20 @@ class Registration extends StatelessWidget {
                 } else {
                   if (mailAddress != null && password != null) {
                     try {
-                      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      UserCredential userCredential = await FirebaseAuth
+                          .instance
+                          .createUserWithEmailAndPassword(
                         email: mailAddress!,
                         password: password!,
                       );
-                      print(userCredential);
+
+                      final User user = userCredential.user!;
+                      db
+                          .collection(user.uid)
+                          .doc('0')
+                          .set({'item': 'Todo Lets go', 'done': false});
                       // if (!context.mounted) return;
-                              
+
                       showDialog(
                         context: context,
                         builder: (context) {
