@@ -9,11 +9,10 @@ class Registration extends StatelessWidget {
 
   Registration({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build( BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('新規登録'),
-
       ),
       body: Column(
         children: [
@@ -70,13 +69,13 @@ class Registration extends StatelessWidget {
                 } else {
                   if (mailAddress != null && password != null) {
                     try {
-                      UserCredential userCredential = await FirebaseAuth
-                          .instance
-                          .createUserWithEmailAndPassword(
+                      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
                         email: mailAddress!,
                         password: password!,
                       );
+                      print(userCredential);
                       // if (!context.mounted) return;
+                              
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -150,7 +149,8 @@ class Registration extends StatelessWidget {
                               ],
                             );
                           });
-                      // print(e);
+
+                      print(e);
                     }
                   }
                 }

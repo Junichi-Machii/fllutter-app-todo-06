@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  String? mailAddress;
-  String? password;
+  String? mailAddress = 'test@test.com';
+  String? password = 'testpass';
   MyHomePage({super.key});
 
   @override
