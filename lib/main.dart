@@ -88,7 +88,12 @@ class MyHomePage extends StatelessWidget {
                     .signInWithEmailAndPassword(
                         email: mailAddress!, password: password!);
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Todo()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Todo(
+                              user: userCredential.user!,
+                            )));
+                print(userCredential.user!);
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
                   showDialog(

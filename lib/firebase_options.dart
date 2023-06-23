@@ -2,17 +2,17 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+
+
+
+show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
+ // ...
+
 /// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -53,11 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA_DlvtRe80mk6943GKdIV3-wzK8GG4-rs',
-    appId: '1:41278984360:android:44334a7246f237d8f2729d',
-    messagingSenderId: '41278984360',
-    projectId: 'todoapp-4c18e',
-    databaseURL: 'https://todoapp-4c18e-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'todoapp-4c18e.appspot.com',
+    apiKey: 'AIzaSyBUQVwW9UwFMN2IP5SSBJp39w0wXs1X5P4',
+    appId: '1:491560770910:android:3717fbdfd7936881d0c3cf',
+    messagingSenderId: '491560770910',
+    projectId: 'test-app-todo-48948',
+    storageBucket: 'test-app-todo-48948.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAP82n08xpLLEhKmLvNEssErVFqXQbksNo',
+    appId: '1:491560770910:ios:8bf336b2302b612ed0c3cf',
+    messagingSenderId: '491560770910',
+    projectId: 'test-app-todo-48948',
+    storageBucket: 'test-app-todo-48948.appspot.com',
+    iosClientId:
+        '491560770910-qb000ki7snqh8kp8cqpm71t0rrhgd2u8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.myAppTodo',
   );
 }
