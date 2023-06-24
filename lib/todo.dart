@@ -16,17 +16,41 @@ class Todo extends StatelessWidget {
               title: Text('Todo'),
               automaticallyImplyLeading: false,
             ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      String? newItem;
+                      return SimpleDialog(
+                        title: TextField(
+                          onChanged: (newText) {
+                            newItem = newText;
+                          },
+                        ),
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                if (newItem != null) {
+                                  FirebaseFirestore.instance
+                                      .collection(user.uid)
+                                      .doc('${snapshot.data!.docs.length}')
+                                      .set({'item': newItem, 'done': false});
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: Text('Ok'))
+                        ],
+                      );
+                    });
+              },
+              child: Icon(Icons.add),
+            ),
             body: snapshot.hasData
                 ? ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
-                        onLongPress: () {
-                          FirebaseFirestore.instance
-                              .collection(user.uid)
-                              .doc('${index}')
-                              .delete();
-                        },
                         onTap: () {
                           FirebaseFirestore.instance
                               .collection(user.uid)
@@ -35,6 +59,12 @@ class Todo extends StatelessWidget {
                             'item': snapshot.data!.docs[index]['item'],
                             'done': !snapshot.data!.docs[index]['done'],
                           });
+                        },
+                        onLongPress: () {
+                          FirebaseFirestore.instance
+                              .collection(user.uid)
+                              .doc('${index}')
+                              .delete();
                         },
                         title: Text(snapshot.data!.docs[index]['item']),
                         trailing: (snapshot.data!.docs[index]['done'] == true)
